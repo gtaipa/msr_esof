@@ -1,2 +1,28 @@
-backend/src/main/java/com/mnsr/oracleJdk-27/
-**/oracleJdk-*/
+# 1. Segredos e Variáveis de Ambiente
+.env
+.env.*
+!.env.example
+
+# 2. Backend (Java / Spring Boot / Maven)
+backend/target/
+target/
+*.class
+*.jar
+*.war
+*.log
+
+# 3. Frontend (Node / React / PWA)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+.npm/
+
+# 4. Configurações de IDEs (VS Code, IntelliJ, etc)
+.vscode/
+.idea/
+*.iml
+*.suo
+
+# 5. Ficheiros de Sistema Operativo
+.DS_Store
+Thumbs.db
