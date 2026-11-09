@@ -22,5 +22,10 @@ O impacto desta aplicação será medido pelas seguintes metas institucionais:
 * **Bases de Dados:** PostgreSQL (Servidor) + IndexedDB (Offline Mobile)
 * **Assistente de IA:** Gemini / Claude
 
+## 5. Governação de IA (Marco M0)
+A nossa equipa adota a filosofia *scaffold first, automate second* e compromete-se a manter total transparência no uso de IA Generativa.
+* 📄 Ler a **[Carta de Uso Responsável de IA](docs/CARTA_IA.md)**
+* 🔎 Consultar o **[Registo de Proveniência de IA (AI_LOG)](docs/AI_LOG.md)**
+
 ---
 *(Nota: As instruções detalhadas de instalação e execução local - "Como Correr" - serão disponibilizadas no lançamento do Incremento M3).*
