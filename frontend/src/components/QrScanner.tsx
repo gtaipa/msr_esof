@@ -14,7 +14,10 @@ export default function QrScanner({ onLeitura }: Props) {
   const [erro, setErro] = useState<string | null>(null);
   const leitor = useRef<Html5Qrcode | null>(null);
   const callback = useRef(onLeitura);
-  callback.current = onLeitura;
+  // Guarda sempre a versão mais recente do callback sem reiniciar a câmara.
+  useEffect(() => {
+    callback.current = onLeitura;
+  }, [onLeitura]);
 
   useEffect(() => {
     if (!ativo) return;
