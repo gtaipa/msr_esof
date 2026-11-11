@@ -34,8 +34,13 @@ export default defineConfig({
     }),
   ],
   server: {
-    // Em desenvolvimento, /api vai para o backend Spring Boot do Gui.
-    proxy: { '/api': 'http://localhost:8080' },
+    // Em desenvolvimento: /api/ia vai para o assistente de IA (Python, porta 8000)
+    // e o resto de /api vai para o backend Spring Boot do Gui (porta 8080).
+    // A ordem importa: a regra mais específica tem de vir primeiro.
+    proxy: {
+      '/api/ia': 'http://localhost:8000',
+      '/api': 'http://localhost:8080',
+    },
   },
   test: {
     globals: true,
