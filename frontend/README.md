@@ -25,10 +25,12 @@ npm run build      # versão de produção em dist/
 | `src/types/` | Tipos alinhados com o diagrama de classes (Obra, Sala, Roteiro, Medalha) |
 | `src/data/` | Acervo de exemplo usado offline (**confirmar dados com o museu**) |
 | `src/services/` | Roteiro local, cliente da API, medalhas e o contrato da caça ao tesouro |
-| `src/pages/` | Ecrãs: Início, Roteiros (Módulo A), Caça ao tesouro (Módulo B), Chat IA (M5) |
+| `src/pages/` | Ecrãs: Início, Roteiros (Módulo A), Caça ao tesouro (Módulo B), Chat IA (Módulo C) |
 | `src/components/` | Barra de navegação e leitor de QR |
 
 ## Contrato com o backend (a combinar)
+
+- `POST /api/ia/chat` (assistente de IA, pasta `ia/`, porta 8000 — ver `ia/README.md`).
 
 - `POST /api/roteiros` com `{ "tempo": 30|60|90, "tema": "escultura"|"pintura"|"artes-decorativas" }`
   devolve `{ id, nome, tempo, obras: Obra[], minutosTotais }`.

@@ -98,9 +98,52 @@ describe('Caça ao tesouro (Módulo B)', () => {
   });
 });
 
-describe('Chat IA', () => {
-  it('mostra que o módulo chega em breve', () => {
+describe('Chat IA (Módulo C)', () => {
+  it('mostra a pergunta, a resposta e a fonte', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ resposta: 'É uma escultura em mármore.', encontrou: true, fontes: ['O Desterro'] })),
+      ),
+    );
+    const user = userEvent.setup();
     abrir('/chat');
-    expect(screen.getByText('Em breve')).toBeInTheDocument();
+    await user.click(screen.getByLabelText('Criança'));
+    await user.type(screen.getByLabelText('A tua pergunta'), 'De que é feito O Desterro?');
+    await user.click(screen.getByRole('button', { name: 'Perguntar' }));
+
+    expect(await screen.findByText('É uma escultura em mármore.')).toBeInTheDocument();
+    expect(screen.getByText('De que é feito O Desterro?')).toBeInTheDocument();
+    expect(screen.getByText('Fonte: O Desterro')).toBeInTheDocument();
+    expect(screen.getByLabelText('A tua pergunta')).toHaveValue('');
+  });
+
+  it('não mostra fonte quando o guia não sabe', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(new Response(JSON.stringify({ resposta: 'Não encontrei.', encontrou: false, fontes: [] }))),
+    );
+    const user = userEvent.setup();
+    abrir('/chat');
+    await user.type(screen.getByLabelText('A tua pergunta'), 'Preço do bilhete?');
+    await user.click(screen.getByRole('button', { name: 'Perguntar' }));
+    expect(await screen.findByText('Não encontrei.')).toBeInTheDocument();
+    expect(screen.queryByText(/Fonte:/)).not.toBeInTheDocument();
+  });
+
+  it('mostra o erro quando o assistente está indisponível', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('', { status: 503 })));
+    const user = userEvent.setup();
+    abrir('/chat');
+    await user.type(screen.getByLabelText('A tua pergunta'), 'Olá');
+    await user.click(screen.getByRole('button', { name: 'Perguntar' }));
+    expect((await screen.findByText(/indisponível/)).closest('li')).toHaveClass('erro');
+  });
+
+  it('não deixa enviar perguntas vazias', async () => {
+    const user = userEvent.setup();
+    abrir('/chat');
+    await user.type(screen.getByLabelText('A tua pergunta'), '   ');
+    expect(screen.getByRole('button', { name: 'Perguntar' })).toBeDisabled();
   });
 });
