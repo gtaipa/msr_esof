@@ -36,6 +36,23 @@ jobs:
           name: cobertura-backend
           path: backend/target/site/jacoco/
 
+      - name: Auditar dependências Maven (OWASP Dependency-Check)
+        uses: dependency-check/Dependency-Check_Action@1e54355a8b4c8abaa8cc7d0b70aa655a3bb15a6c
+        env:
+          JAVA_HOME: /opt/jdk
+        with:
+          project: App MNSR Digital
+          path: backend
+          format: HTML
+          out: reports
+          args: --failOnCVSS 7
+
+      - name: Guardar relatório OWASP Dependency-Check
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-dependencias-backend
+          path: reports/dependency-check-report.html
   frontend:
     name: Frontend (lint, tipos, testes, build)
     runs-on: ubuntu-latest

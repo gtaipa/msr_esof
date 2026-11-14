@@ -1,6 +1,7 @@
 package com.mnsr.application;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.mnsr.domain.Obra;
 import com.mnsr.domain.Tema;
 import java.util.List;

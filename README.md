@@ -20,9 +20,11 @@ O impacto desta aplicação será medido pelas seguintes metas institucionais:
 ## 4. Stack Tecnológica
 * **Frontend Móvel:** TypeScript + React (Progressive Web App)
 * **Backend API:** Java + Spring Boot
-* **Testes e Qualidade:** JUnit + JaCoCo (Cobertura >= 80%)
+* **Testes e Qualidade:** JUnit + JaCoCo (Cobertura >= 80%), Checkstyle e OWASP Dependency-Check (CVSS 7)
 * **Bases de Dados:** PostgreSQL (Servidor) + IndexedDB (Offline Mobile)
 * **Assistente de IA:** Gemini / Claude
+
+A CI executa a action oficial OWASP Dependency-Check sobre o projeto Maven e usa uma base de vulnerabilidades atualizada diariamente; não requer `NVD_API_KEY`.
 
 ## 5. Governação de IA (Marco M0)
 A nossa equipa adota a filosofia *scaffold first, automate second* e compromete-se a manter total transparência no uso de IA Generativa.

@@ -1,4 +1,4 @@
-﻿package com.mnsr.infrastructure.api;
+package com.mnsr.infrastructure.api;
 
 import java.time.Instant;
 import java.util.Map;
