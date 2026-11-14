@@ -51,6 +51,7 @@
                     <excludes>
                         <!-- Classe de arranque do Spring: não tem lógica para testar. -->
                         <exclude>com/mnsr/Application.class</exclude>
+                        <exclude>jdk/internal/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>

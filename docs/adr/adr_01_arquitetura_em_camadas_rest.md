@@ -23,3 +23,6 @@ A organização das camadas será a seguinte:
 *   **Negativas:**
     *   Maior verbosidade do código, exigindo a criação de DTOs (Data Transfer Objects) e Mappers para transportar dados entre as camadas sem "contaminar" o Domínio.
     *   Curva de aprendizagem inicial ligeiramente superior para manter a separação rigorosa de responsabilidades (SRP).
+## Persistência inicial
+
+A primeira entrega usa repositórios em memória atrás de interfaces da aplicação para permitir testes rápidos e execução sem infraestrutura externa. A migração para PostgreSQL fica registada como evolução: implementar adaptadores de persistência e migrações quando a equipa validar o esquema e os dados oficiais do acervo. A escolha do repositório em memória não altera o contrato REST.
