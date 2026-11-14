@@ -72,6 +72,6 @@ Para iniciar o frontend e os três serviços em conjunto, mantenha os três term
 | M1 — Visão e backlog | Visão existente; histórias US-03–08 detalhadas como propostas a validar |
 | M2 — Arquitetura e qualidade | ADR-01/ADR-03 e CI presentes nos respetivos branches; ADR-02 aguarda decisão real da equipa |
 | M3 — Produto e integração | API Java e assistente Python implementados; integração frontend/API está em branch próprio; mapa, perfil, sincronização duradoura, áudio, partilha e feedback são propostas, não funcionalidades concluídas |
-| Revisão da equipa | PRs e aprovações de colegas ainda não registados; não se atribuem aprovações ou papéis sem confirmação |
+| Revisão da equipa | Aprovação coletiva dos blocos A–D registada no [AI_LOG](docs/AI_LOG.md), conforme confirmação da equipa transmitida pelo utilizador em 2026-11-14. Reviews individuais no GitHub e papéis de cada membro não foram fornecidos. |
 
 Ver também [backlog e histórias](docs/backlog_e_user_stories.md), [stakeholders e requisitos](docs/stakeholders_e_requisitos.md), [diagrama de casos de uso](docs/uml/casos_de_uso.md) e [ADR-03](docs/adr/adr_03_assistente_ia_rag.md).
