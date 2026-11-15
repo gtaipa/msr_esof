@@ -1,25 +1,34 @@
-# ADR 01: Adoção de Arquitetura Limpa em 3 Camadas com API RESTful
+# ADR-01: Arquitetura Limpa em 3 camadas com API RESTful
 
-**Data:** 22 de Outubro de 2026
-**Status:** Aceite
+**Data:** 22 de outubro de 2026 (revisto em 15 de novembro de 2026)
 
-## 1. Contexto
-A App MNSR Digital terá de gerir lógicas de negócio progressivamente mais complexas, incluindo a validação de pontos de gamificação (Caça ao Tesouro via QR Codes) e a integração com serviços de IA para os roteiros dinâmicos (RAG). 
-A utilização de uma arquitetura acoplada diretamente à framework (como um MVC tradicional fortemente ligado ao Spring Boot) dificultaria a testabilidade isolada do domínio e futuras migrações. Além disso, a aplicação móvel (cliente) necessita de comunicar de forma padronizada com o backend.
+## Título
+Organização do backend em 3 camadas (Domínio, Aplicação, Infraestrutura) e comunicação por API RESTful.
 
-## 2. Decisão
-Decidimos implementar o backend utilizando uma abordagem de **Arquitetura Limpa (Clean Architecture) dividida em 3 camadas principais**, e expor os serviços através de uma **API RESTful**.
+## Contexto
+A App MNSR Digital terá de gerir lógicas de negócio progressivamente mais complexas, incluindo os roteiros dinâmicos (Módulo A) e a validação de pontos da Caça ao Tesouro com QR Codes (Módulo B). O sistema tem três componentes: a PWA (React, em `frontend/`), a API principal em Spring Boot (`backend/`) e o assistente de IA em Python (`ia/`, ver ADR-03).
+Uma arquitetura acoplada diretamente à framework (como um MVC tradicional fortemente ligado ao Spring Boot) dificultaria a testabilidade isolada do domínio e futuras migrações. Além disso, a aplicação móvel (cliente) necessita de comunicar de forma padronizada com o backend.
 
-A organização das camadas será a seguinte:
-*   **Domínio (Domain):** Onde residem as entidades core (Ex: `Roteiro`, `Obra`, `Visitante`, `DesafioGamificado`). Não tem qualquer dependência externa, garantindo a aplicação estrita das regras de negócio.
-*   **Aplicação (Application):** Onde residem os Casos de Uso (Use Cases / Services) que orquestram a lógica. Define as interfaces (Ports) para acesso aos dados.
-*   **Infraestrutura (Infrastructure):** Onde residem os Controllers REST, os Repositórios de acesso à Base de Dados (PostgreSQL/SQLite) e as configurações do Spring Boot.
+## Decisão Considerada
+Implementar o backend com uma abordagem de **Arquitetura Limpa (Clean Architecture) dividida em 3 camadas** e expor os serviços através de uma **API RESTful**.
 
-## 3. Consequências
-*   **Positivas:** 
-    *   **Alta Testabilidade:** A lógica de negócio core pode ser testada com JUnit (TDD) sem carregar o contexto pesado do Spring, garantindo rapidez e facilidade em atingir a meta de >80% de cobertura.
-    *   **Desacoplamento:** Facilita a substituição de componentes de infraestrutura (ex: mudar o LLM Provider ou a base de dados) sem afetar o core da aplicação.
-    *   **Comunicação Standard:** A API RESTful permite que a aplicação móvel comunique de forma universal e eficiente com o backend.
-*   **Negativas:**
-    *   Maior verbosidade do código, exigindo a criação de DTOs (Data Transfer Objects) e Mappers para transportar dados entre as camadas sem "contaminar" o Domínio.
-    *   Curva de aprendizagem inicial ligeiramente superior para manter a separação rigorosa de responsabilidades (SRP).
+* **Domínio (Domain):** entidades core (`Obra`, `Sala`, `Roteiro`) e regras de negócio, como o cálculo do roteiro dentro do tempo escolhido. Não tem dependências externas. Não existe uma entidade `Visitante` com dados pessoais (RNF-03): o progresso do visitante é anónimo e fica no telemóvel (ADR-02).
+* **Aplicação (Application):** casos de uso (ex.: "Gerar Roteiro") que orquestram o domínio. Define as interfaces (Ports) para acesso aos dados.
+* **Infraestrutura (Infrastructure):** controllers REST (ex.: `POST /api/roteiros`), repositórios de acesso a dados e configuração do Spring Boot.
+
+O serviço de IA (`ia/`) segue a mesma ideia de separação em módulos pequenos (configuração, leitura do corpus, índice vetorial, assistente RAG e API HTTP) e o frontend isola a lógica de negócio dos ecrãs em `services/`.
+
+Alternativa rejeitada: MVC tradicional do Spring Boot, mais rápido de começar, mas com o domínio misturado com a framework.
+
+## Consequências
+* **Positivas:**
+  * **Alta testabilidade:** a lógica de negócio pode ser testada com JUnit (TDD) sem carregar o contexto do Spring, o que ajuda a atingir a meta de cobertura de pelo menos 80% definida na Definition of Done.
+  * **Desacoplamento:** facilita a substituição de componentes de infraestrutura (ex.: a base de dados) sem afetar o core da aplicação.
+  * **Comunicação standard:** a API RESTful permite que a aplicação móvel comunique de forma universal com o backend.
+* **Negativas:**
+  * Maior verbosidade do código, com DTOs (Data Transfer Objects) e Mappers para transportar dados entre camadas sem "contaminar" o Domínio.
+  * Curva de aprendizagem inicial superior para manter a separação rigorosa de responsabilidades.
+  * A API Java ainda só tem a classe de arranque; os endpoints do Módulo A serão implementados no Sprint 2.
+
+## Estado
+Aceite

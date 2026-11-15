@@ -36,4 +36,4 @@ do hardware do PC da demo e é mais lento.
   o limiar de relevância tem de ser calibrado com as perguntas de teste.
 
 ## Estado
-Proposto (João). A rever pela equipa.
+Aceite
