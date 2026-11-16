@@ -101,4 +101,4 @@ A equipa adota a filosofia *scaffold first, automate second* e compromete-se a s
 > As instruções de instalação e execução ("Como correr") serão publicadas com o Incremento M3.
 
 ## 10. Equipa
-**Equipa:** Guilherme Taipa, João Reis e José Martins.
+**Equipa:** Guilherme Taipa, João Reis, José Martins e Ricardo Pereira.
