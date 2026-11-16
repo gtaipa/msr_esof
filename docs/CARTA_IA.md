@@ -11,3 +11,4 @@ Enquanto equipa de desenvolvimento, comprometemo-nos a adotar a filosofia "scaff
 * [Guilherme Taipa]
 * [João Reis]
 * [José Martins]
+* [Ricardo Pereira]
